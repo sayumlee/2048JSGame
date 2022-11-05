@@ -20,9 +20,71 @@ function startGame() {
   draw();
 }
 
-function put2ToRandomCell() {}
+function put2ToRandomCell() {
+  const emptyCells = [];
+  data.forEach(function (rowData, i) {
+    rowData.forEach(function (cellData, j) {
+      if (!cellData) {
+        emptyCells.push([i,j]);
+      }
+    });
+  });
 
-function draw() {}
+const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+data[randomCell[0]][randomCell[1]] = 2;
+
+
+}
+
+function draw() {
+  data.forEach((rowData,i) => {
+    rowData.forEach((cellData, j) => {
+      const target = table.children[i].children[j];
+      if (cellData > 0) {
+        target.textContent = cellData;
+        target.className = 'color-' + cellData;
+      } else {
+        target.textContent = '';
+        target.className = '';
+      }
+
+    })
+  })
+}
 
 startGame();
 
+/*data = [
+  [0,2,4,2],
+  [0,0,8,0],
+  [2,2,2,2],
+  [0,16,0,4]
+*/
+
+draw();
+function moveCells(direction) {
+  switch (direction) {
+
+  }
+
+}
+
+window.addEventListener('keyup', (event) => {
+  switch (event.key) {
+    case 'ArrowUp':
+      moveCells('up');
+      break;
+    
+    case 'ArrowDown':
+      moveCells('down');
+      break;
+
+    case 'ArrowLeft':
+      moveCells('left');
+      break;
+
+    case 'ArrowRight':
+      moveCells('right');
+      break;
+  }
+});
