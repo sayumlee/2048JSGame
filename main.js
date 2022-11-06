@@ -54,19 +54,43 @@ function draw() {
 
 startGame();
 
-/*data = [
+data = [
   [0,2,4,2],
   [0,0,8,0],
   [2,2,2,2],
-  [0,16,0,4]
-*/
+  [0,16,0,4],
+];
 
 draw();
 function moveCells(direction) {
   switch (direction) {
+    case 'left': 
+      const newData = [[], [], [], []];
+      data.forEach((rowData, i) => {
+        rowData.forEach((cellData, j) => {
+            if (cellData) {
+              const currentRow = newData[i];
+              const prevData = currentRow[currentRow.length - 1];
+              if (prevData === cellData) {
+                currentRow[currentRow.length - 1] *= -2;
+              } else {
+                newData[i].push(cellData);
+              }
+              
+            }
+        });
+      });
+      console.log(newData);
+      [1,2,3,4].forEach((rowData, i) => {
+        [1,2,3,4].forEach((cellData, j) => {
+          data[i][j] = Math.abs(newData[i][j]) || 0;
+        });
+      });
+      break;
+      
 
-  }
-
+}
+draw();
 }
 
 window.addEventListener('keyup', (event) => {
@@ -88,3 +112,18 @@ window.addEventListener('keyup', (event) => {
       break;
   }
 });
+
+
+
+/*window.addEventListener('keyup', (event) => {
+  if (event.key === 'ArrowUp') {
+    moveCells('up');
+  } else if (event.key === 'ArrowDown') {
+    moveCells('down');
+  } else if (event.key === 'ArrowLeft') {
+    moveCells('left');
+  } else if (event.key === 'ArrowRight') {
+    moveCells('right');
+  }
+});
+*/
